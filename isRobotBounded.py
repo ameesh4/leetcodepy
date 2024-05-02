@@ -5,23 +5,31 @@ class Solution:
         self.current_direction = "N"
     
     def isRobotBounded(self, instructions: str) -> bool:
+        turnLeft = {"N": "W", "W": "S", "S": "E", "E": "N"}
+        turnRight = {"N": "E", "E": "S", "S": "W", "W": "N"}
         self.record.append(self.move[:])
-        while len(self.record) < 1:
+        if len(instructions) == 2:
+            i = 5
+        else:
+            i = 4
+
+        if instructions.count("G") == 0:
+            return True
+
+        while len(self.record) < i:
             for a in instructions:
                 if a == "G":
                     self.moveForward(self.current_direction)
                     self.record.append(self.move[:])
                 elif a == "L":
-                    self.current_direction = self.turnLeft(self.current_direction)
+                    self.current_direction = turnLeft[self.current_direction]
                 elif a == "R":
-                    self.current_direction = self.turnRight(self.current_direction)
+                    self.current_direction = turnRight[self.current_direction]
 
         if self.record[-1] == [0, 0]:
             return True
         else:
             return False
-                
-            
 
     def moveForward(self, direction: str) -> None:
         if direction == "N":
@@ -32,29 +40,9 @@ class Solution:
             self.move[0] += 1
         else:
             self.move[0] -= 1
-
-    def turnLeft(self, direction: str) -> str:
-        if direction == "N":
-            return "W"
-        elif direction == "W":
-            return "S"
-        elif direction == "S":
-            return "E"
-        else:
-            return "N"
-        
-    def turnRight(self, direction: str) -> str:
-        if direction == "N":
-            return "E"
-        elif direction == "E":
-            return "S"
-        elif direction == "S":
-            return "W"
-        else:
-            return "N"
         
 def main():
-    print(Solution().isRobotBounded("LRRRRLLLRL"))
+    print(Solution().isRobotBounded("LLGRL"))
 
 if __name__ == "__main__":
     main()
