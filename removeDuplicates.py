@@ -3,10 +3,10 @@ class Solution:
         temp = nums.copy()
         nums.clear()
         for i in range(len(temp)):
-            if i == len(temp)-1:
+            if i == len(temp)-1 or temp[i] != temp[i+1]:
                 nums.append(temp[i])
-            elif temp[i] != temp[i+1]:
-                nums.append(temp[i])
+            # elif temp[i] != temp[i+1]:
+            #     nums.append(temp[i])
 
         print(nums)
     
