@@ -1,15 +1,16 @@
 class Solution:
     def two_sum(self, nums: list[int], target: int) -> list[int]:
-        memo = {}
+        a = []
         for i in range(len(nums)):
-            if target - nums[i] in memo:
-                return [memo[target-nums[i]], i]
+            temp = nums.copy()
+            if target - temp.pop(i) in temp:
+                a.append([target-nums[i], nums[i]])
             
-            memo[nums[i]] = i
+        return a
     
 def main():
-    arr = [2, 7, 11, 5]
+    arr = [-1, 1, 2, -1, -4, -2, -3, 3, 0, 4]
     sol = Solution()
-    print(sol.two_sum(arr, 16))
+    print(sol.two_sum(arr, 0))
 
 main()

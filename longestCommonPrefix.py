@@ -2,8 +2,12 @@ class Solution(object):
     def longestCommonPrefix(self, strs):
         if len(strs) == 0:
             return ""
-        if len(strs) == 1:
+        elif len(strs) == 1:
             return strs[0]
+        elif strs.count(strs[0]) == len(strs):
+            return strs[0]
+        elif strs[0] == "":
+            return ""
         
         prefix = strs[0][0]
         i = 0
@@ -12,19 +16,28 @@ class Solution(object):
         while i < len(strs):
             if prefix == strs[i][0:j]:
                 i += 1
-            else:
+            elif j >= len(strs):
+                # prefix = prefix.replace(prefix[-1], "", 1)
+                res = prefix[0:j-1]
                 break
-            
+            elif prefix != strs[i][0:j]:
+                # prefix = prefix.replace(prefix[-1], "", 1)
+                res = prefix[0:j-1]
+                break
+                
             if i == len(strs):
                 i = 0
                 j += 1
-                res = prefix
-                prefix = prefix + strs[0][j-1]
+                try:
+                    prefix = prefix + strs[0][j-1]
+                except IndexError:
+                    res = prefix
+                    break
 
         return res
 
 def main():
     sol = Solution()
-    print(sol.longestCommonPrefix(["dog"]))
+    print(sol.longestCommonPrefix(["abab","aba","abc"]))
 
 main()
